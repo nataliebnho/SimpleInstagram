@@ -3,6 +3,7 @@ package com.example.simpleinstagram;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.media.Image;
@@ -17,6 +18,8 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivAddPicture;
     Button btnLogOut;
 
+    SwipeRefreshLayout swipeContainer;
+
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
 
@@ -35,6 +40,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchTimelineAsync(0);
+            }
+        });
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         ivAddPicture = findViewById(R.id.ivAddPicture);
         btnLogOut = findViewById(R.id.btnLogOut);
@@ -68,6 +86,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void fetchTimelineAsync(int i) {
+        adapter.clear();
+        queryPosts();
+        swipeContainer.setRefreshing(false);
     }
 
     private void queryPosts() {
