@@ -96,7 +96,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:layout_toEndOf="@+id/tvUsernameBotton"
-        android:paddingBottom="20dp"
         android:text="TextView" />
 
     <TextView
@@ -108,4 +107,14 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUsernameBotton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="20dp" />
 </RelativeLayout>
