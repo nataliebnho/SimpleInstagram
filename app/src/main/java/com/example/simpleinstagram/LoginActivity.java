@@ -20,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPassword;
     Button btnLogin;
+    public static final int MAINACTIVITYREQUESTCODE = 40;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

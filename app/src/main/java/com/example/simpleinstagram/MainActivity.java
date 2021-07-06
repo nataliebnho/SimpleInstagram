@@ -7,17 +7,20 @@ import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     ImageView ivAddPicture;
+    Button btnLogOut;
     public final String TAG = "MainActivity";
 
     @Override
@@ -26,12 +29,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ivAddPicture = findViewById(R.id.ivAddPicture);
+        btnLogOut = findViewById(R.id.btnLogOut);
 
         ivAddPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, AddPost.class);
                 startActivity(i);
+            }
+        });
+
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser.logOut();
+                //ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                MainActivity.this.finish();
             }
         });
 
