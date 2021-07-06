@@ -36,11 +36,12 @@
 
     <EditText
         android:id="@+id/etDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="213dp"
+        android:backgroundTint="#A5A0A0"
         android:ems="10"
         android:hint="Write a caption..."
         android:inputType="textPersonName"
