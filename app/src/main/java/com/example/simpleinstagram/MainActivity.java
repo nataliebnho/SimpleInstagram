@@ -1,118 +1,59 @@
 package com.example.simpleinstagram;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
+import com.example.simpleinstagram.fragments.HomeFragment;
+import com.example.simpleinstagram.fragments.ProfileFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.json.JSONArray;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
     public final String TAG = "MainActivity";
+    final FragmentManager fragmentManager = getSupportFragmentManager();
 
-    RecyclerView rvPosts;
-    ImageView ivAddPicture;
-    Button btnLogOut;
-
-    SwipeRefreshLayout swipeContainer;
-
-    protected PostsAdapter adapter;
-    protected List<Post> allPosts;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        bottomNavigationView = findViewById(R.id.bottomNavigation);
 
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onRefresh() {
-                fetchTimelineAsync(0);
-            }
-        });
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-
-        ivAddPicture = findViewById(R.id.ivAddPicture);
-        btnLogOut = findViewById(R.id.btnLogOut);
-
-        rvPosts = findViewById(R.id.rvPosts);
-        allPosts = new ArrayList<>();
-        adapter = new PostsAdapter(this, allPosts);
-
-        // set the adapter on the recycler view
-        rvPosts.setAdapter(adapter);
-        // set the layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(this));
-        // query posts from Parstagram
-        queryPosts();
-
-        ivAddPicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, AddPost.class);
-                startActivity(i);
-            }
-        });
-
-        btnLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ParseUser.logOut();
-                //ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                MainActivity.this.finish();
-            }
-        });
-
-    }
-
-    private void fetchTimelineAsync(int i) {
-        adapter.clear();
-        queryPosts();
-        swipeContainer.setRefreshing(false);
-    }
-
-    private void queryPosts() {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.setLimit(20);
-        query.addDescendingOrder("createdAt");
-
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue w getting posts", e);
+            public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+                Fragment fragment;
+                switch (item.getItemId()) {
+                    case R.id.action_home:
+                        fragment = new HomeFragment();
+                        break;
+                    case R.id.action_profile:
+                        fragment = new ProfileFragment();
+                        Toast.makeText(MainActivity.this, "Profile!", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        fragment = new HomeFragment();
+                        break;
                 }
-                for (Post post : posts) {
-                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
-                }
-                allPosts.addAll(posts);
-                adapter.notifyDataSetChanged();
+                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+                return true;
             }
         });
+
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
+
+
     }
+
 
 }

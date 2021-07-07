@@ -75,6 +75,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 Glide.with(context).load(image.getUrl()).into(ivPostPicture);
             }
             tvDate.setText(calculateTimeAgo(post.getCreatedAt()));
+
+
         }
     }
 
