@@ -60,7 +60,6 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
 
     }
@@ -88,11 +87,9 @@ public class HomeFragment extends Fragment {
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
 
-        // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
-        // set the layout manager on the recycler view
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-        // query posts from Parstagram
+
         queryPosts();
 
         ivAddPicture.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +106,6 @@ public class HomeFragment extends Fragment {
                 ParseUser.logOut();
                 //ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
                 startActivity(new Intent(getContext(), LoginActivity.class));
-                Context context = getContext();
                 getActivity().finish();
             }
         });

@@ -24,6 +24,7 @@
         android:layout_marginTop="22dp"
         android:layout_toEndOf="@+id/ivProfilePic"
         android:text="TextView"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <ImageView
@@ -38,8 +39,8 @@
 
     <ImageView
         android:id="@+id/ivLikes"
-        android:layout_width="28dp"
-        android:layout_height="20dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_below="@+id/ivPostPicture"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
@@ -48,8 +49,8 @@
 
     <ImageView
         android:id="@+id/ivComments"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_below="@+id/ivPostPicture"
         android:layout_marginStart="9dp"
         android:layout_marginTop="10dp"
@@ -58,8 +59,8 @@
 
     <ImageView
         android:id="@+id/ivDm"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_below="@+id/ivPostPicture"
         android:layout_marginStart="7dp"
         android:layout_marginTop="7dp"
@@ -68,8 +69,8 @@
 
     <ImageView
         android:id="@+id/ivSave"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_below="@+id/ivPostPicture"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
@@ -78,8 +79,8 @@
 
     <ImageView
         android:id="@+id/ivMoreButton"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="22dp"
@@ -97,7 +98,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:layout_toEndOf="@+id/tvUsernameBotton"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvUsernameBotton"
@@ -108,6 +110,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:text="TextView"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
@@ -119,6 +122,6 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="5dp"
         android:paddingBottom="20dp"
-        android:textSize="12sp"
+        android:textSize="14sp"
         tools:text="createdAt" />
 </RelativeLayout>

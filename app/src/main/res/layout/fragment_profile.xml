@@ -26,6 +26,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:textSize="34sp"
+        android:textStyle="bold"
         tools:text="natalie__ho" />
 
     <TextView
@@ -36,7 +37,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="TextView" />
+        android:text="Name"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvBio"
@@ -45,32 +47,21 @@
         android:layout_below="@+id/tvName"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="TextView" />
-
-    <GridView
-        android:id="@+id/idGVcourses"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvBio"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="0dp"
-        android:horizontalSpacing="6dp"
-        android:numColumns="3"
-        android:verticalSpacing="6dp" />
+        android:layout_marginTop="5dp"
+        android:text="bio" />
 
     <TextView
         android:id="@+id/tvNumPosts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvProfileUsername"
-        android:layout_marginStart="63dp"
+        android:layout_centerHorizontal="false"
+        android:layout_marginStart="84dp"
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/ivProfilePicOnPage"
-        android:text="TextView" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="50" />
 
     <TextView
         android:id="@+id/textView5"
@@ -87,10 +78,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvProfileUsername"
-        android:layout_marginStart="33dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/tvNumPosts"
-        android:text="TextView" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="500" />
 
     <TextView
         android:id="@+id/textView7"
@@ -99,7 +92,7 @@
         android:layout_below="@+id/tvNumFollowers"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="114dp"
+        android:layout_marginEnd="115dp"
         android:text="Followers" />
 
     <TextView
@@ -107,12 +100,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvProfileUsername"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="33dp"
+        android:layout_marginStart="62dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="15dp"
         android:layout_toEndOf="@+id/tvNumFollowers"
-        android:text="TextView" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="400" />
 
     <TextView
         android:id="@+id/textView11"
@@ -123,6 +116,18 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="14dp"
         android:text="Following" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvUserPosts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvBio"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="0dp" />
 
 
 </RelativeLayout>

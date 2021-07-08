@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_profile:
                         fragment = new ProfileFragment();
-                        Toast.makeText(MainActivity.this, "Profile!", Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         fragment = new HomeFragment();
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottomNavigationView.setSelectedItemId(R.id.action_home);
-
 
     }
 

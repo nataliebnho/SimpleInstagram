@@ -6,6 +6,14 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <queries>
+
+        <!-- Camera -->
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+    </queries>
+
     <application
         android:name=".ParseApplication"
         android:allowBackup="true"
@@ -14,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleInstagram">
-        <activity android:name=".AddPost"></activity>
+        <activity android:name=".PostDetailActivity"></activity>
+        <activity android:name=".AddPost" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -34,12 +43,5 @@
                 android:resource="@xml/fileprovider" />
         </provider>
     </application>
-
-    <queries>
-        <!-- Camera -->
-        <intent>
-            <action android:name="android.media.action.IMAGE_CAPTURE" />
-        </intent>
-    </queries>
 
 </manifest>
