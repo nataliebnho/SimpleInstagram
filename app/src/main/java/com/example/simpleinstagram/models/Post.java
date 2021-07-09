@@ -1,4 +1,4 @@
-package com.example.simpleinstagram;
+package com.example.simpleinstagram.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
@@ -19,7 +19,6 @@ public class Post extends ParseObject {
     }
 
     public String getDescription() {
-        //getString is a method in the ParseObject that looks on the database for the inputted key
         return getString(KEY_DESCRIPTION);
     }
 

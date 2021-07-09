@@ -1,6 +1,5 @@
-package com.example.simpleinstagram;
+package com.example.simpleinstagram.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.simpleinstagram.PostDetailActivity;
+import com.example.simpleinstagram.R;
+import com.example.simpleinstagram.models.Post;
 import com.parse.ParseFile;
 
 import org.jetbrains.annotations.NotNull;
@@ -62,7 +64,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
                 Glide.with(context).load(image.getUrl()).into(ivGridPost);
             }
 
-
         }
 
         @Override
@@ -74,16 +75,5 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             i.putExtra("position", position);
             context.startActivity(i);
         }
-    }
-
-    public void clear() {
-        posts.clear();
-        notifyDataSetChanged();
-    }
-
-    // Add a list of items -- change to type used
-    public void addAll(List<Post> list) {
-        posts.addAll(list);
-        notifyDataSetChanged();
     }
 }

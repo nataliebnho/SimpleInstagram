@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.simpleinstagram.adapters.PostsAdapter;
+import com.example.simpleinstagram.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -55,7 +57,10 @@ public class PostDetailActivity extends AppCompatActivity {
             Glide.with(this).load(image.getUrl()).into(ivPostPicture);
         }
         tvDate.setText(PostsAdapter.calculateTimeAgo(post.getCreatedAt()));
+        queryForLikes();
+    }
 
+    protected void queryForLikes() {
         ParseQuery query = post.getRelation("like").getQuery().whereContains("objectId", ParseUser.getCurrentUser().getObjectId());
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
@@ -77,6 +82,5 @@ public class PostDetailActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 }

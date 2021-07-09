@@ -4,22 +4,17 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.simpleinstagram.Post;
-import com.example.simpleinstagram.PostsAdapter;
-import com.example.simpleinstagram.ProfileAdapter;
+import com.example.simpleinstagram.models.Post;
+import com.example.simpleinstagram.adapters.ProfileAdapter;
 import com.example.simpleinstagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -53,7 +48,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
