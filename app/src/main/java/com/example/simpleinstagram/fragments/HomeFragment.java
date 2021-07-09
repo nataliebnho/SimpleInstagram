@@ -2,8 +2,10 @@ package com.example.simpleinstagram.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,10 +29,13 @@ import com.example.simpleinstagram.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import org.jetbrains.annotations.NotNull;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +45,15 @@ public class HomeFragment extends Fragment {
     RecyclerView rvPosts;
     ImageView ivAddPicture;
     Button btnLogOut;
+    ImageView ivLike;
 
     SwipeRefreshLayout swipeContainer;
-
+    //ActivityResultLauncher<Intent>
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
     public static final String TAG = "HomeFragment";
+    int REQUEST_CODE = 40;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -82,6 +90,7 @@ public class HomeFragment extends Fragment {
 
         ivAddPicture = view.findViewById(R.id.ivAddPicture);
         btnLogOut = view.findViewById(R.id.btnLogOut);
+        ivLike = view.findViewById(R.id.ivLikes);
 
         rvPosts = view.findViewById(R.id.rvPosts);
         allPosts = new ArrayList<>();
@@ -96,7 +105,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), AddPost.class);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_CODE);
+                //startActivity(i);
             }
         });
 
@@ -109,14 +119,27 @@ public class HomeFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+
     }
 
-    private void fetchTimelineAsync(int i) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //resultCode is defined by Android
+        if (requestCode == REQUEST_CODE) {
+            Post post = Parcels.unwrap(data.getParcelableExtra("post"));
+            //Post post = (Post) Parcels.unwrap(data.getIntent().getParcelableExtra("post"));
+            allPosts.add(0, post);
+            adapter.notifyItemInserted(0);
+            rvPosts.smoothScrollToPosition(0);
+        }
+    }
+
+    private void fetchTimelineAsync (int i) {
         adapter.clear();
         queryPosts();
         swipeContainer.setRefreshing(false);
     }
-
     private void queryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
@@ -137,4 +160,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+
 }

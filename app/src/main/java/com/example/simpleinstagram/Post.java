@@ -15,6 +15,9 @@ public class Post extends ParseObject {
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
 
+    public Post() {
+    }
+
     public String getDescription() {
         //getString is a method in the ParseObject that looks on the database for the inputted key
         return getString(KEY_DESCRIPTION);

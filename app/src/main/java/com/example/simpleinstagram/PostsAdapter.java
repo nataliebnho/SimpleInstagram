@@ -13,7 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
 
@@ -22,6 +28,7 @@ import java.util.List;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
+    private static final String TAG = "POSTSADAPTER";
     private Context context;
     private List<Post> posts;
 
@@ -55,6 +62,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvCaption;
         private TextView tvUsernameBottom;
         private TextView tvDate;
+        private ImageView ivLikes;
+        private TextView tvNumLikes;
+        private TextView tvNumLikesConstant;
+        private int currentSize;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +75,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvCaption = itemView.findViewById(R.id.tvCaption);
             tvUsernameBottom = itemView.findViewById(R.id.tvUsernameBotton);
             tvDate = itemView.findViewById(R.id.tvDate);
+            ivLikes = itemView.findViewById(R.id.ivLikes);
+            tvNumLikes = itemView.findViewById(R.id.tvNumLikes);
+            tvNumLikesConstant = itemView.findViewById(R.id.tvLikesConstant);
         }
 
         public void bind(Post post) {
@@ -75,18 +89,89 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 Glide.with(context).load(image.getUrl()).into(ivPostPicture);
             }
             tvDate.setText(calculateTimeAgo(post.getCreatedAt()));
+            ParseQuery simpleQuery = post.getRelation("like").getQuery();
+            simpleQuery.findInBackground(new FindCallback<ParseUser>() {
+                @Override
+                public void done(List<ParseUser> objects, ParseException e) {
+                    if (e == null){
+                        tvNumLikes.setText("" + objects.size());
+                        currentSize = objects.size();
 
+                        if (currentSize == 1) {
+                            tvNumLikesConstant.setText("Like");
+                        } else {
+                            tvNumLikesConstant.setText("Likes");
+                        }
+                    }
+                }
+
+            });
+
+            ParseQuery query = post.getRelation("like").getQuery().whereContains("objectId", ParseUser.getCurrentUser().getObjectId());
+            query.findInBackground(new FindCallback<ParseUser>() {
+                @Override
+                public void done(List<ParseUser> objects, ParseException e) {
+                    if(e == null){
+                        if(objects.size() == 0){
+                            //do not like
+                            ivLikes.setImageResource(R.drawable.ufi_heart);
+                            ivLikes.setSelected(false);
+                            Log.d(TAG, "current user not liked it");
+                        }
+                        else{
+                            // display that it is liked
+                            ivLikes.setImageResource(R.drawable.ufi_heart_active);
+                            ivLikes.setSelected(true);
+                            Log.d(TAG, "current user did already liked it");
+                        }
+                    }
+                }
+            });
+
+            ivLikes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        if (ivLikes.isSelected()) {
+                            deleteLikes(post);
+                            ivLikes.setImageResource(R.drawable.ufi_heart);
+                            ivLikes.setSelected(false);
+                            tvNumLikes.setText("" + (currentSize - 1));
+                            currentSize -= 1;
+
+                            if (currentSize == 1) {
+                                tvNumLikesConstant.setText("Like");
+                            } else {
+                                tvNumLikesConstant.setText("Likes");
+                            }
+                        } else {
+                            postLikes(post);
+                            ivLikes.setImageResource(R.drawable.ufi_heart_active);
+                            ivLikes.setSelected(true);
+                            tvNumLikes.setText("" + (currentSize + 1));
+                            currentSize += 1;
+
+                            if (currentSize == 1) {
+                                tvNumLikesConstant.setText("Like");
+                            } else {
+                                tvNumLikesConstant.setText("Likes");
+                            }
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        Log.e(TAG, "post was not liked");
+                    }
+                }
+            });
 
         }
     }
 
-    // Clean all elements of the recycler
     public void clear() {
         posts.clear();
         notifyDataSetChanged();
     }
 
-    // Add a list of items -- change to type used
     public void addAll(List<Post> list) {
         posts.addAll(list);
         notifyDataSetChanged();
@@ -126,5 +211,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         }
 
         return "";
+    }
+
+    private void postLikes(Post post) throws ParseException {
+        ParseRelation<ParseObject> relation = post.getRelation("like");
+        relation.add(ParseUser.getCurrentUser());
+        post.save();
+    }
+
+    private void deleteLikes(Post post) throws ParseException {
+        ParseRelation<ParseObject> relation = post.getRelation("like");
+        relation.remove(ParseUser.getCurrentUser());
+        post.save();
     }
 }

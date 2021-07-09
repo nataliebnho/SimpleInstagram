@@ -94,19 +94,30 @@
         android:layout_below="@+id/ivDm"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="9dp"
         android:layout_toEndOf="@+id/tvUsernameBotton"
         android:text="TextView" />
+
+    <TextView
+        android:id="@+id/tvNumLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivLikes"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:text="TextView"
+        tools:text="1000" />
 
     <TextView
         android:id="@+id/tvUsernameBotton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivDm"
+        android:layout_below="@id/tvNumLikes"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="0dp"
         android:text="TextView"
         android:textStyle="bold" />
 
@@ -114,11 +125,23 @@
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvUsernameBotton"
+        android:layout_below="@id/tvUsernameBotton"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="11dp"
         android:layout_marginTop="5dp"
         android:paddingBottom="20dp"
         android:textSize="12sp"
         tools:text="createdAt" />
+
+    <TextView
+        android:id="@+id/tvLikesConstant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivComments"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/tvNumLikes"
+        tools:autoText="false"
+        tools:text="Likes" />
+
 </RelativeLayout>

@@ -61,6 +61,8 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivGridPost);
             }
+
+
         }
 
         @Override

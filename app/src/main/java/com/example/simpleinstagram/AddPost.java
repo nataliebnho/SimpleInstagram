@@ -25,6 +25,8 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.parceler.Parcels;
+
 import java.io.File;
 
 public class AddPost extends AppCompatActivity {
@@ -38,6 +40,7 @@ public class AddPost extends AppCompatActivity {
     private ImageView ivPhotoToPost;
     public String photoFileName = "photo.jpg";
     private File photoFile;
+    public Post finalPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,11 @@ public class AddPost extends AppCompatActivity {
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
+                Intent intent = new Intent();
+                //to pass an entire tweet object back, make tweet Parceable
+                intent.putExtra("post", Parcels.wrap(finalPost));
+                setResult(RESULT_OK, intent);
+                //finish();
             }
         });
 
@@ -143,6 +151,6 @@ public class AddPost extends AppCompatActivity {
                 ivPhotoToPost.setImageResource(0);
             }
         });
-
+        finalPost = post;
     }
 }
