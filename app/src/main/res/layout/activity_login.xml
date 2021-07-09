@@ -53,4 +53,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="158dp"
         app:srcCompat="@drawable/nav_logo_whiteout" />
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="149dp"
+        android:backgroundTint="#4CAF50"
+        android:text="Sign Up" />
 </RelativeLayout>
