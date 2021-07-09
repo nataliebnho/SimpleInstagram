@@ -79,15 +79,12 @@ public class LoginActivity extends AppCompatActivity {
         ParseUser user = new ParseUser();
         user.setUsername(username);
         user.setPassword(password);
-        user.setEmail("email@example.com");
-        user.put("phone", "650-253-0000");
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
                     goMainActivity();
                 } else {
-                    // Sign up didn't succeed. Look at the ParseException
-                    // to figure out what went wrong
+                    Log.e(TAG, "Issue with sign up ", e);
                 }
             }
         });
